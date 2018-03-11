@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "856699101521",
+    "firebase_url": "https://imt3673-lab04-8ac04.firebaseio.com",
+    "project_id": "imt3673-lab04-8ac04",
+    "storage_bucket": "imt3673-lab04-8ac04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856699101521:android:a2fd93b76864c672",
+        "android_client_info": {
+          "package_name": "com.example.tholok.lab04"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856699101521-u90ijlvtk7ikbg299bjj6932ma3q6qji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_9AN_Q2vcVoEZEDj4NWKOCYLl2Md3XJM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
