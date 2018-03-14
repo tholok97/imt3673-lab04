@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "856699101521-ki4khjt6akdolv9fcqv5ak944o9atl12.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tholok.lab04",
+            "certificate_hash": "fac2d38673c3128f3f8ce4985e02bf2f60b29a23"
+          }
+        },
+        {
           "client_id": "856699101521-u90ijlvtk7ikbg299bjj6932ma3q6qji.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856699101521-u90ijlvtk7ikbg299bjj6932ma3q6qji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
