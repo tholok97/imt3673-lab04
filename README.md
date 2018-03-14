@@ -1,4 +1,4 @@
-# My solution to lab 4 in IMT3003 - Mobile / Wearable Programming
+# My solution to lab 4 in IMT3673 - Mobile / Wearable Programming
 
 ## Task description
 
@@ -24,7 +24,7 @@ The app will use Firebase, with Real-time Database or Cloud Firestore, setup. Th
         Date date=new Date(timestamp);
         SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         sfd.format(date)
-
+        
 * u -- user nickname, as string, limited to 35 UTF-8 characters.
 * m -- message, as string, limited to 256 UTF-8 characters.
 
