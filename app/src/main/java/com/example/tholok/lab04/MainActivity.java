@@ -112,6 +112,9 @@ public class MainActivity extends Activity {
 
                 // update UI with new message
                 arrayAdapter.add(message.u + ": " + message.m);
+
+                // scroll listview down
+                lwMessages.setSelection(lwMessages.getCount()-1);
             }
 
             @Override
