@@ -55,7 +55,12 @@ public class MainActivity extends Activity {
         // setup components
         edMessage = (EditText) findViewById(R.id.et_message);
         bMessage = (Button) findViewById(R.id.b_message);
-        lwMessages = (ListView) findViewById((R.id.lw_messages));
+        lwMessages = (ListView) findViewById(R.id.lw_messages);
+
+        // start fetcher service
+        Intent serviceIntent = new Intent(this, MessageFetcherService.class);
+        startService(serviceIntent);
+
 
         // setup listview
         arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1);
@@ -141,6 +146,7 @@ public class MainActivity extends Activity {
 
 
     }
+
 
     @Override
     public void onStart() {

@@ -17,7 +17,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".PickUsername" />
-        <activity android:name=".UsersActivity"></activity>
+        <activity android:name=".UsersActivity" />
+
+        <service
+            android:name=".MessageFetcherService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
