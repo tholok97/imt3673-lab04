@@ -31,6 +31,7 @@
 
     <!-- list of messages. height is rest of screen -->
     <ListView
+        android:id="@+id/lw_messages"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"></ListView>
@@ -50,6 +51,7 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:onClick="sendButton"
             android:text="Send!"
             android:id="@+id/b_message"
             android:layout_width="wrap_content"
