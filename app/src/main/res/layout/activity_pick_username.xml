@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- explanatory header -->
+    <TextView
+        android:padding="30dp"
+        android:textSize="30dp"
+        android:text="Feel free to customize your username and the fetch-rate:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- for spacing -->
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <!-- Username-setting area -->
+
+    <TextView
+        android:text="Change username:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_username"
+            android:text="Tim"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Change"
+            android:id="@+id/b_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!-- fetch-rate -->
+    <TextView
+        android:text="Fetch new messages every __ minutes:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_fetch-rate"
+            android:inputType="number"
+            android:text="1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Change"
+            android:id="@+id/b_fetch-rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <!-- for spacing -->
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <!-- finished button -->
+    <Button
+        android:id="@+id/b_finished"
+        android:text="Finished editing"
+        android:onClick="finishedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />k
+
+</LinearLayout>
