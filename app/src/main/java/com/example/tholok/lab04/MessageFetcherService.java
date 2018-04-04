@@ -139,7 +139,7 @@ public class MessageFetcherService extends Service {
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(MessageFetcherService.this)
                                     .setContentIntent(pendingIntent)
-                                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                                    .setSmallIcon(R.drawable.ic_launcher_background)
                                     .setContentTitle("New message(s) in the chatting app!")
                                     .setContentText("There are new message(s) in the chatting app. Click here to go there and check them out");
 
@@ -159,21 +159,24 @@ public class MessageFetcherService extends Service {
 
                     mNotificationManager.notify(9239239, mBuilder.build());
 
+                    Log.e(TAG, "notifying");
 
-
-
-                    // store date of most recent message
-                    SharedPreferences.Editor editor = prefs.edit();
-
-                    editor.putLong("latest-message-timestamp", timestamp);
-                    editor.apply();
                 }
+
+
+
+                // store date of most recent message
+                SharedPreferences.Editor editor = prefs.edit();
+
+                editor.putLong("latest-message-timestamp", timestamp);
+                editor.apply();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e(TAG, "Querying for recent messages failed..");
             }
+
         });
     }
 }

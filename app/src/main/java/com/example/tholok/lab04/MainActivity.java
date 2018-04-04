@@ -141,6 +141,15 @@ public class MainActivity extends Activity {
 
                                     // scroll listview down
                                     lwMessages.setSelection(lwMessages.getCount()-1);
+
+
+                                    // store date of most recent message
+                                    if (isVisible) {
+                                        SharedPreferences.Editor editor = prefs.edit();
+
+                                        editor.putLong("latest-message-timestamp", Long.parseLong(message.d));
+                                        editor.apply();
+                                    }
                                 }
 
                                 @Override
