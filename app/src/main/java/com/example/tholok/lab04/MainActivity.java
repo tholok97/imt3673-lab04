@@ -32,6 +32,8 @@ import java.util.Date;
 
 public class MainActivity extends Activity {
 
+    public static boolean isVisible;
+
     private static String TAG = "MainActivity";
 
     private FirebaseAuth mAuth;
@@ -189,5 +191,17 @@ public class MainActivity extends Activity {
 
         // clean up tw_message
         edMessage.setText("");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isVisible = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isVisible = false;
     }
 }
