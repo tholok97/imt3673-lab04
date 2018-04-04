@@ -70,11 +70,14 @@ public class MainActivity extends Activity {
 
         // get prefs
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
 
 
         // if first time user -> show pref screen
         final Boolean isFirstTime = prefs.getBoolean("isFirstTime", true);
         if (isFirstTime) {
+            editor.putBoolean("isFirstTime", false);
+            editor.apply();
             Intent intent = new Intent(this, PickUsername.class);
             startActivity(intent);
         }
