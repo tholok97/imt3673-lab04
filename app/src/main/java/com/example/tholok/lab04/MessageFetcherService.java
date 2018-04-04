@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -33,13 +34,27 @@ public class MessageFetcherService extends Service {
 
     public MessageFetcherService() {
 
+        Log.e(TAG, "service started");
+
         // setup database// Write a message to the database
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference().child("messages");
 
         // start off dispatcher service
         DispatcherTask dispatcherTask = new  DispatcherTask();
-        dispatcherTask.execute();
+
+          /*
+        In modern API levels only one AsyncTask can be running at once, and this service has an
+        AsyncTask running forever. This task is blocking all other tasks. A (and dirty) fix to this
+        is what I've done here: just make AsyncTask execute in parallel.
+        In the future I'll be avoiding having long-lived AsyncTasks
+        If you're in IMT3003; see issue #20
+         */
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+            dispatcherTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            dispatcherTask.execute();
+        }
         
     }
 
@@ -67,17 +82,17 @@ public class MessageFetcherService extends Service {
                 // convert to milliseconds
                 int milliseconds = minutes*60*1000;
 
-                Log.d(TAG, "Pref milli: " + Integer.toString(milliseconds));
+                Log.e(TAG, "Pref milli: " + Integer.toString(milliseconds));
 
                 // try and sleep
                 try {
-                    sleep(milliseconds);
+                    sleep(/*milliseconds*/1000);
                 } catch (Exception ex) {
-                    Log.d(TAG, "Couldn't sleep.. : " + ex.getMessage());
+                    Log.e(TAG, "Couldn't sleep.. : " + ex.getMessage());
                 }
 
                 // do work
-                Log.d(TAG, "DOING WORK");
+                Log.e(TAG, "DOING WORK");
 
                 // if app isn't running -> check for messages
                 if (!MainActivity.isVisible) {
@@ -94,18 +109,20 @@ public class MessageFetcherService extends Service {
      */
     private void checkForNewMessages() {
 
+        Log.e(TAG, "checking for new messages...");
+
         myRef.orderByChild("d").limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (!dataSnapshot.exists()) {
-                    Log.d(TAG, "Querying message -> no datasnapshot exists");
+                    Log.e(TAG, "Querying message -> no datasnapshot exists");
                     return;
                 }
 
                 Message message = dataSnapshot.getChildren().iterator().next().getValue(Message.class);
-                Log.d(TAG, "Message retrieved:::: " + message.m);
+                Log.e(TAG, "Message retrieved:::: " + message.m);
 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MessageFetcherService.this);
 
@@ -155,7 +172,7 @@ public class MessageFetcherService extends Service {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "Querying for recent messages failed..");
+                Log.e(TAG, "Querying for recent messages failed..");
             }
         });
     }

@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,6 +55,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // get prefs
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+
+
+
         // setup components
         edMessage = (EditText) findViewById(R.id.et_message);
         bMessage = (Button) findViewById(R.id.b_message);
@@ -68,19 +75,10 @@ public class MainActivity extends Activity {
         arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1);
         lwMessages.setAdapter(arrayAdapter);
 
-        // get prefs
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
 
-
-        // if first time user -> show pref screen
-        final Boolean isFirstTime = prefs.getBoolean("isFirstTime", true);
-        if (isFirstTime) {
-            editor.putBoolean("isFirstTime", false);
-            editor.apply();
-            Intent intent = new Intent(this, PickUsername.class);
-            startActivity(intent);
-        }
+        // setup database// Write a message to the database
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference().child("messages");
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -93,6 +91,82 @@ public class MainActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInAnonymously:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+
+                            /*
+
+                            // HAVE TO DO THIS HERE TO GUARANTEE AUTHENTICATED (dirty solution yea..)
+                            // add listener to database messages-reference
+                            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    // for each message -> add it to the list
+
+                                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                        Message message = data.getValue(Message.class);
+                                        Log.e(TAG, "message received: " + message.m);
+
+                                        // update UI with new message
+                                        arrayAdapter.add(message.u + ": " + message.m);
+
+                                    }
+
+                                    // scroll listview down
+                                    lwMessages.setSelection(lwMessages.getCount()-1);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // not implemented
+                                }
+                            });
+
+                            */
+
+                            // add listener to database messages-reference
+                            myRef.addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                                    // get message object from snapshot
+                                    Message message = dataSnapshot.getValue(Message.class);
+
+                                    // do some logging
+                                    Log.d(TAG, "The new message is: " + message.m);
+
+                                    // update UI with new message
+                                    arrayAdapter.add(message.u + ": " + message.m);
+
+                                    // scroll listview down
+                                    lwMessages.setSelection(lwMessages.getCount()-1);
+                                }
+
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                                    // not implemented
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                    // not implemented
+                                }
+
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                    // not implemented
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // not implemented
+                                }
+                            });
+
+
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInAnonymously:failure", task.getException());
@@ -105,49 +179,17 @@ public class MainActivity extends Activity {
                 });
 
 
-        // setup database// Write a message to the database
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference().child("messages");
+        /* FIRST-TIME UPDATE OF THE LISTVIEW DOESN'T WORK IF I LEAVE THIS IN
 
-        // add listener to database messages-reference
-        myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                // get message object from snapshot
-                Message message = dataSnapshot.getValue(Message.class);
-
-                // do some logging
-                Log.d(TAG, "The new message is: " + message.m);
-
-                // update UI with new message
-                arrayAdapter.add(message.u + ": " + message.m);
-
-                // scroll listview down
-                lwMessages.setSelection(lwMessages.getCount()-1);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                // not implemented
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                // not implemented
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                // not implemented
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // not implemented
-            }
-        });
-
+        // if first time user -> show pref screen
+        final Boolean isFirstTime = prefs.getBoolean("isFirstTime", true);
+        if (isFirstTime) {
+            editor.putBoolean("isFirstTime", false);
+            editor.apply();
+            Intent intent = new Intent(this, PickUsername.class);
+            startActivity(intent);
+        }
+        */
 
 
     }
@@ -200,6 +242,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         isVisible = true;
+
     }
 
     @Override
