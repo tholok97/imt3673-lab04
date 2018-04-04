@@ -71,7 +71,7 @@ public class MessageFetcherService extends Service {
 
                 // try and sleep
                 try {
-                    sleep(/*milliseconds*/6000);
+                    sleep(milliseconds);
                 } catch (Exception ex) {
                     Log.d(TAG, "Couldn't sleep.. : " + ex.getMessage());
                 }

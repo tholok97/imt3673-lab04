@@ -35,7 +35,7 @@ public class PickUsername extends Activity {
 
         // set components
         edUsername.setText(prefs.getString("username", "NULL"));
-        edFetchRate.setText(Integer.toString(prefs.getInt("fetch-rate", 0)));
+        edFetchRate.setText(Integer.toString(prefs.getInt("fetch-rate", 1)));
     }
 
     /**
@@ -49,6 +49,7 @@ public class PickUsername extends Activity {
 
         // put UI into prefs
         editor.putString("username", edUsername.getText().toString());
+        editor.putInt("fetch-rate", Integer.parseInt(edFetchRate.getText().toString()));
         editor.apply();
     }
 
