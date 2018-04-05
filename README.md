@@ -1,5 +1,14 @@
 # My solution to lab 4 in IMT3673 - Mobile / Wearable Programming
 
+## Clarifications
+
+* I didn't get the app to open on the username screen without interfering with the . As a result of this the app allows the user to choose a username in a preferences tab (along with fetch-rate).
+* I've tried to fight the endless stream of  linter-warnings that Android can generate for you, but I decided to leave it as is to not waste too much time on the lab task. When creating the project I will be more careful about it.
+* **Sometimes** the message feed takes a while to load, or (very rarely) doesn't at all.
+* Notification does not go away when it is clicked. Didn't fix this to save time. It gets the point across.
+
+Other than that I think I've covered the checklist :)
+
 ## Task description
 
 ### The idea

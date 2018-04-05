@@ -38,6 +38,7 @@ public class PickUsername extends Activity {
         edFetchRate.setText(Integer.toString(prefs.getInt("fetch-rate", 1)));
     }
 
+
     /**
      * Save UI to prefs
      */
