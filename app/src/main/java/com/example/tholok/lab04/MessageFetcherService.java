@@ -131,6 +131,8 @@ public class MessageFetcherService extends Service {
 
                 // if is there are new messages and this isn't the first time the thing runs -> send notification
                 if (timestamp > lastTimestamp && lastTimestamp != 0) {
+                    
+                    // NOTE: The folliwing code was copied fom somewhere. Can't remember where from
 
                     Intent intent = new Intent(MessageFetcherService.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -155,7 +157,7 @@ public class MessageFetcherService extends Service {
                     // If you want to update this notification at a later date, you need to assign it an ID.
                     // You can then use this ID whenever you issue a subsequent notification.
                     // If the previous notification is still visible, the system will update this existing notification,
-                    // rather than create a new one. In this example, the notification’s ID is 001//
+                    // rather than create a new one. Here id is 9239239
 
                     mNotificationManager.notify(9239239, mBuilder.build());
 
