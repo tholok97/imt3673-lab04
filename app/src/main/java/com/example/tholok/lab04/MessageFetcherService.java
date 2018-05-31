@@ -48,7 +48,7 @@ public class MessageFetcherService extends Service {
         AsyncTask running forever. This task is blocking all other tasks. A (and dirty) fix to this
         is what I've done here: just make AsyncTask execute in parallel.
         In the future I'll be avoiding having long-lived AsyncTasks
-        If you're in IMT3003; see issue #20
+        If you're in IMT3673; see issue #20
          */
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
             dispatcherTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
